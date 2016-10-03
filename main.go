@@ -190,7 +190,7 @@ func (d *sshfsDriver) Capabilities(r volume.Request) volume.Response {
 }
 
 func (d *sshfsDriver) mountVolume(v *sshfsVolume) error {
-	cmd := fmt.Sprintf("sshfs %s %s", v.sshcmd, v.mountpoint)
+	cmd := fmt.Sprintf("sshfs %s %s -o follow_symlinks -o transform_symlinks", v.sshcmd, v.mountpoint)
 	if v.password != "" {
 		cmd = fmt.Sprintf("echo %s | %s -o workaround=rename -o password_stdin", v.password, cmd)
 	}
